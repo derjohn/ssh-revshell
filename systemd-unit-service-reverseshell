@@ -1,0 +1,13 @@
+[Unit]
+Description=Reverse SSH connection
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/revshell.sh
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
+
