@@ -1,4 +1,5 @@
 PATHPREFIX?=
+SSHTRGT:=
 
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
@@ -15,4 +16,9 @@ install: ## Installs and enabled the systemd service and the config file in /etc
 
 enable-by-symlink:
 	ln -sf /lib/systemd/system/revshell.service /etc/systemd/system/default.target.wants/revshell.service
+
+scp: ## copies the files PATHPREFIX=
+	scp -p revshell.sh $(SSHTRGT):/usr/local/sbin
+	scp -p systemd-unit-service-reverseshell $(SSHTRGT):/lib/systemd/system/revshell.service
+	scp -p etc-revshell $(SSHTRGT):/etc/revshell
 

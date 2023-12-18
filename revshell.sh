@@ -19,5 +19,5 @@ cat <<EOF > /root/.ssh/privkey.revshell
 ${SSHPRIVKEY}
 EOF
 
-/usr/bin/ssh -v -g -N -T -o "ServerAliveInterval 10" -o "ExitOnForwardFailure yes" -o "UserKnownHostsFile /root/.ssh/known_hosts.revshell" -i /root/.ssh/privkey.revshell -R ${LISTENIP}:${ENDPOINTPORT}:localhost:${LOCALSSHPORT} ${ENDPOINTUSR}@${ENDPOINT}
+/usr/bin/ssh -v -g -N -T -o "ServerAliveInterval 10" -o "ExitOnForwardFailure yes" -o "UserKnownHostsFile /root/.ssh/known_hosts.revshell" -i /root/.ssh/privkey.revshell -R ${LISTENIP:-'127.0.0.1'}:${ENDPOINTPORT}:localhost:${LOCALSSHPORT} ${ENDPOINTUSR}@${ENDPOINT}
 
