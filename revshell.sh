@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 . /etc/revshell
 
@@ -19,5 +19,6 @@ cat <<EOF > /root/.ssh/privkey.revshell
 ${SSHPRIVKEY}
 EOF
 
+if [ -z "${LISTENIP}" ]; then ENDPOINTPORT=$((2222 + ($RANDOM % 22))); fi # randomize port if no DNS record is found
 /usr/bin/ssh -v -g -N -T -o "ServerAliveInterval 10" -o "ExitOnForwardFailure yes" -o "UserKnownHostsFile /root/.ssh/known_hosts.revshell" -i /root/.ssh/privkey.revshell -R ${LISTENIP:-'127.0.0.1'}:${ENDPOINTPORT}:localhost:${LOCALSSHPORT} ${ENDPOINTUSR}@${ENDPOINT}
 
