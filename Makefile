@@ -17,7 +17,7 @@ install: ## Installs and enabled the systemd service and the config file in /etc
 enable-by-symlink:
 	ln -sf /lib/systemd/system/revshell.service /etc/systemd/system/default.target.wants/revshell.service
 
-scp: ## copies the files PATHPREFIX=
+scp: ## copies the files PATHPREFIX= SSHTRGT=<user>@<ip>
 	scp -p revshell.sh $(SSHTRGT):/usr/local/sbin
 	scp -p systemd-unit-service-reverseshell $(SSHTRGT):/lib/systemd/system/revshell.service
 	scp -p etc-revshell $(SSHTRGT):/etc/revshell
